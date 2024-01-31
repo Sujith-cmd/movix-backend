@@ -16,14 +16,16 @@ mongoose.connect
 const connect= async (req,res)=>{
     try{
         await mongoose.connect(process.env.MONGO)
-        console.log("connected db");
+        // console.log("connected db");
     }catch(err){
-        console.log(err.message);
+        // console.log("gcfthh");
+        console.log(err);
+        
     }
     }
 app.use(cookieParser())
 app.use(cors({
-    origin: 'http://localhost:5173',
+    origin: 'https://movix-frontend-6gg1.vercel.app/',
     credentials: true
     }))
 app.use(express.json())
@@ -45,11 +47,14 @@ app.use((err,req,res,next)=>{
 
 })
 
+connect()
+
 app.listen(5000,()=>{
     try {
-        connect()
+        
+        console.log("backend started");
     } catch (error) {
         console.log(" error ",error.message);
     }
-    console.log("backend started");
+   
 })

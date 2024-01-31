@@ -429,8 +429,8 @@ export const signout = (req, res) => {
        },
      ],
      mode: 'payment',
-     success_url: `http://localhost:5173/profile`,
-     cancel_url: `http://localhost:5173/checkoutFailure`,
+     success_url: `https://movix-frontend-6gg1.vercel.app/profile`,
+     cancel_url: `https://movix-frontend-6gg1.vercel.app/checkoutFailure`,
    });
    console.log("session");
    console.log(session);
