@@ -24,10 +24,12 @@ const connect= async (req,res)=>{
     }
     }
 app.use(cookieParser())
-app.use(cors({
-    origin: 'https://movix-frontend-6gg1.vercel.app/',
-    credentials: true
-    }))
+app.use(
+    cors({
+      origin: ["https://movix-frontend-6gg1.vercel.app","http://localhost:5173"],
+      credentials: true, // Allow sending cookies with the request
+    })
+  );
 app.use(express.json())
 app.use("/api/users",userRoutes)
 app.use("/api/vendors",vendorRoutes)
