@@ -26,7 +26,7 @@ const connect= async (req,res)=>{
 app.use(cookieParser())
 app.use(
     cors({
-      origin: ["https://movix-frontend-6gg1.vercel.app","http://localhost:5173"],
+      origin: ["https://movix-frontend-6gg1.vercel.app","https://movixin.jith.shop","http://localhost:5173"],
       credentials: true, // Allow sending cookies with the request
     })
   );
