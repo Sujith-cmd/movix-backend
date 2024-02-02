@@ -10,17 +10,64 @@ import filmRoutes from "./Routes/filmRoutes.js"
 import messageRoute from './Routes/messageRoute.js'
 import reviewRoute from './Routes/reviewRoutes.js'
 import cors from 'cors'
+import http from 'http'; 
+import { Server } from 'socket.io'; 
 dotenv.config()
 const app=express()
-mongoose.connect
+const server = http.createServer(app);
+// const io = new Server(server);
+const io = new Server(server, {
+    cors: {
+        origin: ["https://movix-frontend-6gg1.vercel.app","https://movixin.jith.shop","http://localhost:5173"],
+        credentials: true
+    }
+});
+
+let activeUsers=[]
+io.on("connection",(socket)=>{
+    socket.on('new-user-add',(newUserId)=>{
+        
+        if(!activeUsers.some((user)=>user.userId === newUserId)){
+            activeUsers.push({
+                userId:newUserId,
+                socketId:socket.id
+            })
+        }
+        console.log("active users");
+        console.log(activeUsers);
+        io.emit('get-users',activeUsers)
+    })
+
+
+    socket.on("send-message",(data)=>{
+       
+
+            const {receiverId,senderId}=data
+            const user= activeUsers.find((user)=>user.userId ===receiverId)
+      
+            if(user){
+                io.to(user.socketId).emit("receive-message", data)
+                
+            }
+           
+        
+    }
+    )
+
+    socket.on("disconnect",()=>{
+        activeUsers= activeUsers.filter((user)=>user.socketId !==socket.id)
+    
+        io.emit('get-users',activeUsers)
+    })
+})
+
+// mongoose.connect
 const connect= async (req,res)=>{
     try{
         await mongoose.connect(process.env.MONGO)
-        // console.log("connected db");
+        console.log("connected db");
     }catch(err){
-        // console.log("gcfthh");
-        console.log(err);
-        
+        console.log(err.message);
     }
     }
 app.use(cookieParser())
@@ -49,14 +96,56 @@ app.use((err,req,res,next)=>{
 
 })
 
-connect()
 
-app.listen(5000,()=>{
+server.listen(5000,()=>{
     try {
-        
-        console.log("backend started");
+        connect()
     } catch (error) {
         console.log(" error ",error.message);
     }
-   
+    console.log("backend started");
 })
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+app.use(
+    cors({
+      origin: ["https://movix-frontend-6gg1.vercel.app","https://movixin.jith.shop","http://localhost:5173"],
+      credentials: true, // Allow sending cookies with the request
+    })
+  );
