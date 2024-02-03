@@ -436,8 +436,8 @@ export const signout = (req, res) => {
        },
      ],
      mode: 'payment',
-     success_url: `https://movix-frontend-6gg1.vercel.app/profile`,
-     cancel_url: `https://movix-frontend-6gg1.vercel.app/checkoutFailure`,
+     success_url: `https://movixin.jith.shop/profile`,
+     cancel_url: `https://movixin.jith.shop//checkoutFailure`,
    });
    console.log("session");
    console.log(session);

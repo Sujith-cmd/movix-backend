@@ -507,8 +507,8 @@ try {
       },
     ],
     mode: 'payment',
-    success_url: `https://movix-frontend-6gg1.vercel.app/userProfile`,
-    cancel_url: `https://movix-frontend-6gg1.vercel.app/checkoutFailure`,
+    success_url: `https://movixin.jith.shop/userProfile`,
+    cancel_url: `https://movixin.jith.shop/checkoutFailure`,
   });
   console.log("session");
   console.log(session);
