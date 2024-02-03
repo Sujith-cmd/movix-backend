@@ -74,7 +74,7 @@ export const vendorSignin = async (req,res,next)=>{
         if(isPasswordCorrect){
      
 
-          
+          if(vendor.isAccess=="Allowed"){
             // console.log("password matched");
             const token=jwt.sign({id:vendor._id},process.env.JWT_SECRET)
             
@@ -82,7 +82,10 @@ export const vendorSignin = async (req,res,next)=>{
            
             const expiryDate = new Date(Date.now()+3600000)
             return res.status(200).json({rest,message:"vendor login successful",token})
-        
+          }else{
+            return res.status(401).json({msg:"Access blocked.Please contact admin"})
+
+          }
            }else{
             // next(errorHandler(401,"Invalid password"))
             return res.status(403).json({message:"invalid credentials"})
@@ -90,7 +93,7 @@ export const vendorSignin = async (req,res,next)=>{
         }   
     }else{
         // next(errorHandler(401,"Invalid Credentials"))
-        return res.status(401).json({message:"invalid user"})
+        return res.status(403).json({message:"invalid user"})
     }
        
       } catch (error) {

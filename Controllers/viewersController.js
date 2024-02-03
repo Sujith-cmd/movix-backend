@@ -94,7 +94,7 @@ if (emailRegex.test(email)&&password!==""&&password!==undefined) {
       }
        }else{
         // next(errorHandler(401,"Invalid Credentials"))
-        return res.status(401).json({msg:"Password is incorrect"})
+        return res.status(403).json({msg:"Password is incorrect"})
     } 
 }else{
     // next(errorHandler(401,"Invalid Credentials"))
