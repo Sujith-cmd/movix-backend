@@ -73,7 +73,8 @@ export const vendorSignin = async (req,res,next)=>{
        
         if(isPasswordCorrect){
      
-
+          // const currDate=new Date()
+          // const targDate=new Date(Vendor.subscription)
           if(vendor.isAccess=="Allowed"){
             // console.log("password matched");
             const token=jwt.sign({id:vendor._id},process.env.JWT_SECRET)

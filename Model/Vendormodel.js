@@ -32,7 +32,7 @@ const vendorSchema= mongoose.Schema({
     }],
     isAccess: {
         type : String,
-        default: "Not allowed"
+        default: "Allowed"
     },
     displayPicture : {
         type : String,
